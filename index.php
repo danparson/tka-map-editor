@@ -124,7 +124,7 @@ function create_map()
 function create_image()
 {
 	global $map, $map_frame;
-	$tile_names = array("_a1", "_a2", "_a3", "_a4", "_b1", "_b2", "_b3", "_b4", "_c1", "_c2", "_c3", "_c4", "_d1", "_d2", "_d3", "_d4", "_e1", "_e2", "_e3", "_e4", "_f1", "_f2", "_f3", "_f4", "_g1", "_g2", "_g3", "_g4", "_h1", "_h2", "_h3", "_h4", "_i1", "_i2", "_i3", "_i4", "a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4");
+	$tile_names = array("_a1", "_a2", "_a3", "_a4", "_b1", "_b2", "_b3", "_b4", "_c1", "_c2", "_c3", "_c4", "_d1", "_d2", "_d3", "_d4", "_e1", "_e2", "_e3", "_e4", "_f1", "_f2", "_f3", "_f4", "_g1", "_g2", "_g3", "_g4", "_h1", "_h2", "_h3", "_h4", "_i1", "_i2", "_i3", "_i4", "a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4", "g1", "g2", "g3", "g4", "h1", "h2", "h3", "h4", "i1", "i2", "i3", "i4", "j1", "j2", "j3", "j4");
 	
 	$out_width = (count($map[0]) * 180) + 220;
 	$out_height = (count($map) * 180) + 220;
@@ -219,89 +219,148 @@ if (isset($_GET["m"]))
 <html>
 <head>
 <title>The King's Armory Map Builder</title>
-<script type="text/javascript">
-function generateURL()
-{
-	var map_url = "http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f," + document.getElementById("m1").value + document.getElementById("m2").value + document.getElementById("m3").value + document.getElementById("m4").value + document.getElementById("m5").value + document.getElementById("m6").value + document.getElementById("m7").value + document.getElementById("m8").value + document.getElementById("m9").value + document.getElementById("m10").value + document.getElementById("m11").value + document.getElementById("m12").value + document.getElementById("m13").value + document.getElementById("m14").value + document.getElementById("m15").value + document.getElementById("m16").value;
-	var genurl_element = document.getElementById("genurl");
-	var url_node = document.createTextNode(map_url);
+<link rel="stylesheet" type="text/css" href="css/style.css"></style>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
+
+<script>
+var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1");
+
+  $(function() {
+    $( ".tile-list-item" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".mcell", snapMode: "inner", cursor: "move", cursorAt: { top: 90, left: 90 } });
 	
-	genurl_element.href = map_url;
-	genurl_element.removeChild(genurl_element.firstChild);
-	genurl_element.appendChild(url_node);
-	
-	return false;
-}
-</script>
+	$( ".mcell" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".tile-list-item",
+      drop: function( event, ui ) {
+	    var tile_coords = new Array();
+		var mtiles_index = 0;
+        $( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(1) + '.png)');
+		tile_coords = $( this ).attr('id').substring(1).split("-");
+		mtiles_index = ((4 * (parseInt(tile_coords[1]) - 1)) + parseInt(tile_coords[0])) - 1;
+		mtiles[mtiles_index] = ui.draggable.attr('id').substring(1);
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,' + mtiles.join(''));
+      }
+    })
+  });
+  
+  </script>
 </head>
 <body>
-<!-- img src="img/base.png" usemap="#tka-map" />
-<map id="tka-map" name="tka-map">
-<area shape="rect" coords="200,0,379,109" title="Top 1" href="1">
-<area shape="rect" coords="380,0,559,109" title="Top 2" href="2">
-<area shape="rect" coords="560,0,739,109" title="Top 3" href="3">
-<area shape="rect" coords="830,200,940,379" title="Right 1" href="4">
-<area shape="rect" coords="830,380,940,559" title="Right 2" href="5">
-<area shape="rect" coords="830,560,940,839" title="Right 3" href="6">
-<area shape="rect" coords="200,830,379,940" title="Bottom 1" href="7">
-<area shape="rect" coords="380,830,559,940" title="Bottom 2" href="8">
-<area shape="rect" coords="560,830,739,940" title="Bottom 3" href="9">
-<area shape="rect" coords="0,200,109,379" title="Left 1" href="10">
-<area shape="rect" coords="0,380,109,559" title="Left 2" href="11">
-<area shape="rect" coords="0,560,109,839" title="Left 3" href="12">
-</map -->
-<h1><i>The King's Armory</i> Map Generator</h1>
-<img src="img/key.png" height="300" width="300" />
-<form id="map-form" onsubmit="return generateURL();">
-<p>Use the key below to input the desired tile for each space on the board. Custom border tiles will be working soon.</p>
-<!-- T1: <input type="text" id="t1"><br />
-T2: <input type="text" id="t2"><br />
-T3: <input type="text" id="t3"><br />
-R1: <input type="text" id="r1"><br />
-R2: <input type="text" id="r2"><br />
-R3: <input type="text" id="r3"><br />
-B1: <input type="text" id="b1"><br />
-B2: <input type="text" id="b2"><br />
-B3: <input type="text" id="b3"><br />
-L1: <input type="text" id="l1"><br />
-L2: <input type="text" id="l2"><br />
-L3: <input type="text" id="l3"><br / -->
-1: <input type="text" id="m1"><br />
-2: <input type="text" id="m2"><br />
-3: <input type="text" id="m3"><br />
-4: <input type="text" id="m4"><br />
-5: <input type="text" id="m5"><br />
-6: <input type="text" id="m6"><br />
-7: <input type="text" id="m7"><br />
-8: <input type="text" id="m8"><br />
-9: <input type="text" id="m9"><br />
-10: <input type="text" id="m10"><br />
-11: <input type="text" id="m11"><br />
-12: <input type="text" id="m12"><br />
-13: <input type="text" id="m13"><br />
-14: <input type="text" id="m14"><br />
-15: <input type="text" id="m15"><br />
-16: <input type="text" id="m16"><br />
-<input type="submit" value="Generate URL" />
-</form>
-<div style="background-color: tan;">Your map URL: <a id="genurl" href="">[none]</a></div>
-<h1>Key</h1>
-<div style="width: 75%; overflow: scroll;">
-<table>
-<tr>
+<h1><i>The King's Armory</i> Map Creator <small>(beta)</small></h1>
+<p>Drag tiles from the right onto the map grid to create your map. A link to the completed image is below the map grid.</p>
+<div id="tile-list">
 <?php
 
-$tile_array = array("a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4");
+$tile_array = array("a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4", "g1", "g2", "g3", "g4", "h1", "h2", "h3", "h4", "i1", "i2", "i3", "i4", "j1", "j2", "j3", "j4");
 
 foreach($tile_array as $tile)
 {
-	echo("<td><h3 style='text-align: center;'>" . $tile . "</h3><img src='img/" . $tile . ".png' /></td>");
+	echo("<div id='t" . $tile . "' class='tile-list-item'><img src='img/" . $tile . ".png' /></div>");
 }
 
 ?>
-</tr>
-</table>
 </div>
-<small>&copy; 2013 Dan Parson. All <i>The King's Armory</i> images are Copyright <a href="http://www.gatekeepergaming.com/">Gate Keeper Games</a>. Please visit the <a href="http://www.kickstarter.com/projects/johnwrot/the-kings-armory-the-tower-defense-board-game-0">Kickstarter for TKA.</a></small>
+<div id="canvas">
+	<div class="row">
+		<div id="ul" class="corner"></div>
+		<div id="top">
+			<table class="grid-table htable">
+				<tr>
+					<td id="b1-1" class="hcell-1" colspan="2"></td>
+					<!-- td id="b1-2" class="hcell"></td -->
+					<td id="b1-3" class="hcell"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="ur" class="corner"></div>
+	</div>
+	<div class="row">
+		<div id="left">
+			<table class="grid-table vtable">
+				<tr>
+					<td id="b4-1" class="vcell"></td>
+				</tr>
+				<tr>
+					<td id="b4-2" class="vcell"></td>
+				</tr>
+				<tr>
+					<td id="b4-3" class="vcell"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="middle">
+			<table class="grid-table mtable">
+				<tr>
+					<td id="m1-1" class="mcell"></td>
+					<td id="m2-1" class="mcell"></td>
+					<td id="m3-1" class="mcell"></td>
+					<td id="m4-1" class="mcell"></td>
+				</tr>
+				<tr>
+					<td id="m1-2" class="mcell"></td>
+					<td id="m2-2" class="mcell"></td>
+					<td id="m3-2" class="mcell"></td>
+					<td id="m4-2" class="mcell"></td>
+				</tr>
+				<tr>
+					<td id="m1-3" class="mcell"></td>
+					<td id="m2-3" class="mcell"></td>
+					<td id="m3-3" class="mcell"></td>
+					<td id="m4-3" class="mcell"></td>
+				</tr>
+				<tr>
+					<td id="m1-4" class="mcell"></td>
+					<td id="m2-4" class="mcell"></td>
+					<td id="m3-4" class="mcell"></td>
+					<td id="m4-4" class="mcell"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="right">
+			<table class="grid-table vtable">
+				<tr>
+					<td id="b2-1" class="vcell"></td>
+				</tr>
+				<tr>
+					<td id="b2-2" class="vcell"></td>
+				</tr>
+				<tr>
+					<td id="b2-3" class="vcell"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div id="ll" class="corner"></div>
+		<div id="bottom">
+		<table class="grid-table htable">
+				<tr>
+					<td id="b3-1" class="hcell-2"></td>
+					<td id="b3-2" class="hcell-3" colspan="2"></td>
+					<!-- td id="b3-3" class="hcell"></td -->
+				</tr>
+			</table>
+		</div>
+		<div id="lr" class="corner"></div>
+	</div>
+</div>
+<br id="clearcanvas" />
+<p>Your map URL is <a id="mapurl" href="http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1">http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1</a></p>
+<small>Last Update: Nov. 14, 2013 12:01 PM<br />-
+<br />
+To-do List
+<ul>
+<li>Fix incorrect filetype when saving image</li>
+<li>Allow border tile editing</li>
+<li>Allow custom-sized maps (likely up to 6x6 to keep the server from blowing up)</li>
+<li>Make the interface prettier</li>
+<li>Better mobile compatibility (I personally have had mixed results)</li>
+</ul>
+<p>Issues with this map creator may be emailed to <a href="dan@danielparson.com">dan@danielparson.com</a>. Any contact not related to this map creator should be made to <a href="http://www.gatekeepergaming.com/contact-us">Gate Keeper Games</a>.</p>
+&copy; 2013 Dan Parson. All <i>The King's Armory</i> images are &copy; Gate Keeper Games. Please visit the <a href="http://www.kickstarter.com/projects/johnwrot/the-kings-armory-the-tower-defense-board-game-0">Kickstarter for TKA.</a></small>
 </body>
 </html>
