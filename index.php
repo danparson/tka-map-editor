@@ -218,48 +218,57 @@ if (isset($_GET["m"]))
 
 <html>
 <head>
-<title>The King's Armory Map Builder</title>
+<title>The King's Armory Map Creator</title>
 <link rel="stylesheet" type="text/css" href="css/style.css"></style>
 <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
-
-<script>
-var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1");
-
-  $(function() {
-    $( ".tile-list-item" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".mcell", snapMode: "inner", cursor: "move", cursorAt: { top: 90, left: 90 } });
-	
-	$( ".mcell" ).droppable({
-      activeClass: "ui-state-default",
-      hoverClass: "ui-state-hover",
-      accept: ".tile-list-item",
-      drop: function( event, ui ) {
-	    var tile_coords = new Array();
-		var mtiles_index = 0;
-        $( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(1) + '.png)');
-		tile_coords = $( this ).attr('id').substring(1).split("-");
-		mtiles_index = ((4 * (parseInt(tile_coords[1]) - 1)) + parseInt(tile_coords[0])) - 1;
-		mtiles[mtiles_index] = ui.draggable.attr('id').substring(1);
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,' + mtiles.join(''));
-      }
-    })
-  });
-  
-  </script>
+<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-<h1><i>The King's Armory</i> Map Creator <small>(beta)</small></h1>
+<h1><i>The King's Armory</i> Map Creator <small>(beta 2)</small></h1>
 <p>Drag tiles from the right onto the map grid to create your map. A link to the completed image is below the map grid.</p>
+<ul>
+<li>Double-wide border tiles must be dropped in the left or top half of the space you want it to occupy.</li>
+<li>A tile can be dropped when the space below it is highlighted. Double-wide border tiles may take experimenting.</li>
+<li>Although it's possible to drop a border tile "backwards" (e.g. outward-facing gate) on this page, the image link "fixes" it.</li>
+<li>If the image save dialog says it's "MS-DOS Application" type, just add ".png" to the end of the filename.</li>
+</ul>
 <div id="tile-list">
 <?php
 
-$tile_array = array("a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4", "g1", "g2", "g3", "g4", "h1", "h2", "h3", "h4", "i1", "i2", "i3", "i4", "j1", "j2", "j3", "j4");
+$mtile_array = array("a1", "a2", "a3", "a4", "b1", "b2", "b3", "b4", "c1", "c2", "c3", "c4", "d1", "d2", "d3", "d4", "e1", "e2", "e3", "e4", "f1", "f2", "f3", "f4", "g1", "g2", "g3", "g4", "h1", "h2", "h3", "h4", "i1", "i2", "i3", "i4", "j1", "j2", "j3", "j4");
+$btile_array = array("_e2", "_e4", "_g2", "_g4", "_h2", "_h4", "_f2", "_f4", "_i2", "_i4", "_e1", "_f1", "_e3", "_f3", "_g1", "_i1", "_g3", "_i3", "_h1", "_h3");
 
-foreach($tile_array as $tile)
+
+foreach($mtile_array as $tile)
 {
-	echo("<div id='t" . $tile . "' class='tile-list-item'><img src='img/" . $tile . ".png' /></div>");
+	//echo("<div id='mt" . $tile . "' class='tile-list-item mtile'><img src='img/" . $tile . ".png' /></div>");
+}
+echo("<hr style='clear: both;' />");
+foreach($btile_array as $tile)
+{
+	$classes = "tile-list-item";
+	
+	if ($tile[strlen($tile)-1] == 1 || $tile[strlen($tile)-1] == 3)
+	{
+		$classes .= " htile";
+	}
+	else if ($tile[strlen($tile)-1] == 2 || $tile[strlen($tile)-1] == 4)
+	{
+		$classes .= " vtile";
+	}
+
+	if (in_array(substr($tile, 0, 2), array("_e", "_g", "_h")))
+	{
+		$classes .= " tile2";
+	}
+	else
+	{
+		$classes .= " tile1";
+	}
+
+	echo("<div id='bt" . $tile . "' class='" . $classes . "'><img src='img/" . $tile . ".png' /></div>");
 }
 
 ?>
@@ -270,9 +279,9 @@ foreach($tile_array as $tile)
 		<div id="top">
 			<table class="grid-table htable">
 				<tr>
-					<td id="b1-1" class="hcell-1" colspan="2"></td>
-					<!-- td id="b1-2" class="hcell"></td -->
-					<td id="b1-3" class="hcell"></td>
+					<td id="b1-1" class="hcell cell2" colspan="2" style="background-image: url(img/_g1.png);"></td>
+					<td id="b1-2" class="hcell cell2" style="display: none;"></td>
+					<td id="b1-3" class="hcell cell1"></td>
 				</tr>
 			</table>
 		</div>
@@ -282,13 +291,13 @@ foreach($tile_array as $tile)
 		<div id="left">
 			<table class="grid-table vtable">
 				<tr>
-					<td id="b4-1" class="vcell"></td>
+					<td id="b4-1" class="vcell cell2" rowspan="2" style="background-image: url(img/_e4.png);"></td>
 				</tr>
 				<tr>
-					<td id="b4-2" class="vcell"></td>
+					<td id="b4-2" class="vcell cell2" style="display: none;"></td>
 				</tr>
 				<tr>
-					<td id="b4-3" class="vcell"></td>
+					<td id="b4-3" class="vcell cell1"></td>
 				</tr>
 			</table>
 		</div>
@@ -323,13 +332,13 @@ foreach($tile_array as $tile)
 		<div id="right">
 			<table class="grid-table vtable">
 				<tr>
-					<td id="b2-1" class="vcell"></td>
+					<td id="b2-1" class="vcell cell2" rowspan="2" style="background-image: url(img/_e2.png);"></td>
 				</tr>
 				<tr>
-					<td id="b2-2" class="vcell"></td>
+					<td id="b2-2" class="vcell cell2" style="display: none;"></td>
 				</tr>
 				<tr>
-					<td id="b2-3" class="vcell"></td>
+					<td id="b2-3" class="vcell cell1"></td>
 				</tr>
 			</table>
 		</div>
@@ -339,9 +348,9 @@ foreach($tile_array as $tile)
 		<div id="bottom">
 		<table class="grid-table htable">
 				<tr>
-					<td id="b3-1" class="hcell-2"></td>
-					<td id="b3-2" class="hcell-3" colspan="2"></td>
-					<!-- td id="b3-3" class="hcell"></td -->
+					<td id="b3-1" class="hcell cell2" style="background-image: url(img/_i3.png);"></td>
+					<td id="b3-2" class="hcell cell2" colspan="2" style="background-image: url(img/_h3.png);"></td>
+					<td id="b3-3" class="hcell cell1" style="display: none;"></td>
 				</tr>
 			</table>
 		</div>
@@ -350,12 +359,12 @@ foreach($tile_array as $tile)
 </div>
 <br id="clearcanvas" />
 <p>Your map URL is <a id="mapurl" href="http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1">http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1</a></p>
-<small>Last Update: Nov. 14, 2013 12:01 PM<br />-
+<small>Last Update: Nov. 18, 2013 5:30 AM<br />
 <br />
-To-do List
+Todo List
 <ul>
-<li>Fix incorrect filetype when saving image</li>
-<li>Allow border tile editing</li>
+<li><del>Allow border tile editing<del></li>
+<li>Allow loading maps by URL (finally true editing capability)</li>
 <li>Allow custom-sized maps (likely up to 6x6 to keep the server from blowing up)</li>
 <li>Make the interface prettier</li>
 <li>Better mobile compatibility (I personally have had mixed results)</li>
