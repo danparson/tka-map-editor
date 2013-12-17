@@ -223,7 +223,129 @@ if (isset($_GET["m"]))
 <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+
+<script>
+var dims = new Array(4, 4);
+var btiles = new Array("g", "0", "f", "e", "0", "f", "i", "h", "0", "e", "0", "f");
+var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1");
+
+  $(function() {
+    /*$( ".tile-list-item" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".mcell", snapMode: "inner", cursor: "move", cursorAt: { top: 50, left: 50 } });*/
+	$( ".mtile" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".mcell", snapMode: "inner", cursor: "move", cursorAt: { top: 50, left: 50 } });
+	$( ".htile" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".hcell", snapMode: "inner", cursor: "move", cursorAt: { top: 50, left: 50 } });
+	$( ".vtile" ).draggable({ opacity: 1.0, helper: "clone", scroll: true, snap: ".vcell", snapMode: "inner", cursor: "move", cursorAt: { top: 50, left: 50 } });
+
+	
+	$( ".mcell" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".mtile",
+      drop: function( event, ui ) {
+	    var mtile_coords = new Array();
+		var mtiles_index = 0;
+		mtile_coords = $( this ).attr('id').substring(1).split("-");
+		mtiles_index = ((4 * (parseInt(mtile_coords[1]) - 1)) + parseInt(mtile_coords[0])) - 1;
+		mtiles[mtiles_index] = ui.draggable.attr('id').substring(2);
+		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+      }
+    });
+	
+	$( ".hcell.cell1" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".htile.tile1",
+      drop: function( event, ui ) {
+	    var btile_coords = new Array();
+		var btiles_index = 0;
+		btile_coords = $( this ).attr('id').substring(1).split("-");
+		btiles_index = ((3 * (parseInt(btile_coords[0]) - 1)) + (parseInt(btile_coords[1]) - 1));
+		btiles[btiles_index] = ui.draggable.attr('id').substring(3,4);
+		$( this ).next().css("display", "");
+		$( this ).attr('colspan', '1');
+		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+      }
+    });
+
+	$( ".hcell.cell2" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".htile",
+      drop: function( event, ui ) {
+	    var btile_coords = new Array();
+		var btiles_index = 0;
+		btile_coords = $( this ).attr('id').substring(1).split("-");
+		btiles_index = ((3 * (parseInt(btile_coords[0]) - 1)) + (parseInt(btile_coords[1]) - 1));
+		btiles[btiles_index] = ui.draggable.attr('id').substring(3,4);
+		if (ui.draggable.hasClass('tile2'))
+		{
+			btiles[btiles_index + 1] = 0;
+			$( this ).next().css("display", "none");
+			$( this ).attr('rowspan', '2');
+		}
+		else if (btiles[btiles_index + 1] == 0)
+		{
+			btiles[btiles_index + 1] = 'f';
+			$( this ).next().css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2,3) + 'f' + ui.draggable.attr('id').substring(4,5) + '.png)');
+			$( this ).next().css("display", "");
+			$( this ).attr('rowspan', '1');
+		}
+		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+      }
+    });
+	
+	$( ".vcell.cell1" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".vtile.tile1",
+      drop: function( event, ui ) {
+	    var btile_coords = new Array();
+		var btiles_index = 0;
+		btile_coords = $( this ).attr('id').substring(1).split("-");
+		btiles_index = ((3 * (parseInt(btile_coords[0]) - 1)) + (parseInt(btile_coords[1]) - 1));
+		btiles[btiles_index] = ui.draggable.attr('id').substring(3,4);
+		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+      }
+    });
+
+	$( ".vcell.cell2" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ".vtile",
+      drop: function( event, ui ) {
+	    var btile_coords = new Array();
+		var btiles_index = 0;
+		btile_coords = $( this ).attr('id').substring(1).split("-");
+		btiles_index = ((3 * (parseInt(btile_coords[0]) - 1)) + (parseInt(btile_coords[1]) - 1));
+		btiles[btiles_index] = ui.draggable.attr('id').substring(3,4);
+		if (ui.draggable.hasClass('tile2'))
+		{
+			btiles[btiles_index + 1] = 0;
+			$( this ).parent().next().children(":first-child").css("display", "none");
+			$( this ).attr('rowspan', '2');
+		}
+		else if (btiles[btiles_index + 1] == 0)
+		{
+			btiles[btiles_index + 1] = 'f';
+			$( this ).parent().next().children(":first-child").css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2,3) + 'f' + ui.draggable.attr('id').substring(4,5) + '.png)');
+			$( this ).parent().next().children(":first-child").css("display", "");
+			$( this ).attr('rowspan', '1');
+		}
+		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
+		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+      }
+    });
+  });
+  
+  </script>
 </head>
 <body>
 <h1><i>The King's Armory</i> Map Creator <small>(beta 2)</small></h1>
@@ -234,6 +356,7 @@ if (isset($_GET["m"]))
 <li>Although it's possible to drop a border tile "backwards" (e.g. outward-facing gate) on this page, the image link "fixes" it.</li>
 <li>If the image save dialog says it's "MS-DOS Application" type, just add ".png" to the end of the filename.</li>
 </ul>
+<p>12/17/2013: Thanksgiving got me off track, but now I'm back on the job!</p>
 <div id="tile-list">
 <?php
 
@@ -364,12 +487,15 @@ foreach($btile_array as $tile)
 Todo List
 <ul>
 <li><del>Allow border tile editing<del></li>
+<li>Bugfix: Placing a 2x1 border tile overlapping both a 1x1 and a 2x1 causes the 1x1 to be displayed as grass, but rendered empty.</li>
 <li>Allow loading maps by URL (finally true editing capability)</li>
 <li>Allow custom-sized maps (likely up to 6x6 to keep the server from blowing up)</li>
 <li>Make the interface prettier</li>
 <li>Better mobile compatibility (I personally have had mixed results)</li>
+<li>General clean-up (standards incompliance and messy code in general)</li>
+<li>- 1.0 Release -</li>
 </ul>
 <p>Issues with this map creator may be emailed to <a href="dan@danielparson.com">dan@danielparson.com</a>. Any contact not related to this map creator should be made to <a href="http://www.gatekeepergaming.com/contact-us">Gate Keeper Games</a>.</p>
-&copy; 2013 Dan Parson. All <i>The King's Armory</i> images are &copy; Gate Keeper Games. Please visit the <a href="http://www.kickstarter.com/projects/johnwrot/the-kings-armory-the-tower-defense-board-game-0">Kickstarter for TKA.</a></small>
+&copy; 2013 Dan Parson. All <i>The King's Armory</i> images are &copy; Gate Keeper Games and used with permission. Please visit the <a href="http://www.kickstarter.com/projects/johnwrot/the-kings-armory-the-tower-defense-board-game-0">Kickstarter for TKA.</a></small>
 </body>
 </html>
