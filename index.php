@@ -218,7 +218,7 @@ if (isset($_GET["m"]))
 
 <html>
 <head>
-<title>The King's Armory Map Creator</title>
+<title>TKA Map Editor</title>
 <link rel="stylesheet" type="text/css" href="css/style.css"></style>
 <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
@@ -348,7 +348,7 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
   </script>
 </head>
 <body>
-<h1><i>The King's Armory</i> Map Creator <small>(beta 2)</small></h1>
+<h1>TKA Map Editor</h1>
 <p>Drag tiles from the right onto the map grid to create your map. A link to the completed image is below the map grid.</p>
 <ul>
 <li>Double-wide border tiles must be dropped in the left or top half of the space you want it to occupy.</li>
@@ -356,7 +356,6 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 <li>Although it's possible to drop a border tile "backwards" (e.g. outward-facing gate) on this page, the image link "fixes" it.</li>
 <li>If the image save dialog says it's "MS-DOS Application" type, just add ".png" to the end of the filename.</li>
 </ul>
-<p>12/17/2013: Thanksgiving got me off track, but now I'm back on the job!</p>
 <div id="tile-list">
 <?php
 
@@ -482,20 +481,7 @@ foreach($btile_array as $tile)
 </div>
 <br id="clearcanvas" />
 <p>Your map URL is <a id="mapurl" href="http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1">http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1</a></p>
-<small>Last Update: Nov. 18, 2013 5:30 AM<br />
-<br />
-Todo List
-<ul>
-<li><del>Allow border tile editing<del></li>
-<li>Bugfix: Placing a 2x1 border tile overlapping both a 1x1 and a 2x1 causes the 1x1 to be displayed as grass, but rendered empty.</li>
-<li>Allow loading maps by URL (finally true editing capability)</li>
-<li>Allow custom-sized maps (likely up to 6x6 to keep the server from blowing up)</li>
-<li>Make the interface prettier</li>
-<li>Better mobile compatibility (I personally have had mixed results)</li>
-<li>General clean-up (standards incompliance and messy code in general)</li>
-<li>- 1.0 Release -</li>
-</ul>
-<p>Issues with this map creator may be emailed to <a href="dan@danielparson.com">dan@danielparson.com</a>. Any contact not related to this map creator should be made to <a href="http://www.gatekeepergaming.com/contact-us">Gate Keeper Games</a>.</p>
-&copy; 2013 Dan Parson. All <i>The King's Armory</i> images are &copy; Gate Keeper Games and used with permission. Please visit the <a href="http://www.kickstarter.com/projects/johnwrot/the-kings-armory-the-tower-defense-board-game-0">Kickstarter for TKA.</a></small>
+<p>Issues with TKA Map Editor may be reported <a href="https://github.com/danparson/tka-map-editor">on GitHub</a> or discussed <a href="https://gitter.im/danparson/tka-map-editor">on Gitter</a>. Any contact not related to TKA Map Editor should be made to <a href="http://www.gatekeepergaming.com/contact-us">Gate Keeper Games</a>.</p>
+<p>&copy; 2013-2015 Dan Parson. Licensed under the <a href="https://github.com/danparson/tka-map-editor/blob/master/LICENSE">GNU AGPLv3</a> license. All <a href="https://www.boardgamegeek.com/filepage/96681/map-tiles">map tile images</a> are &copy; Gate Keeper Games and <a href="https://www.boardgamegeek.com/article/13978298#13978298">used with permission.</a></p>
 </body>
 </html>
