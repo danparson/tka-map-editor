@@ -365,7 +365,7 @@ $btile_array = array("_e2", "_e4", "_g2", "_g4", "_h2", "_h4", "_f2", "_f4", "_i
 
 foreach($mtile_array as $tile)
 {
-	//echo("<div id='mt" . $tile . "' class='tile-list-item mtile'><img src='img/" . $tile . ".png' /></div>");
+	echo("<div id='mt" . $tile . "' class='tile-list-item mtile'><img src='img/" . $tile . ".png' /></div>");
 }
 echo("<hr style='clear: both;' />");
 foreach($btile_array as $tile)
