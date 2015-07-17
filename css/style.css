@@ -41,13 +41,13 @@ body
 #ul
 {
 	float: left;
-	background-image: url(http://danielparson.com/tka-map/img/_a1.png);
+	background-image: url(../img/_a1.png);
 }
 
 #ur
 {
 	float: left;
-	background-image: url(http://danielparson.com/tka-map/img/_b1.png);
+	background-image: url(../img/_b1.png);
 }
 
 #ll
@@ -55,7 +55,7 @@ body
 	float: left;
 	clear: left;
 	margin-top: -90px;
-	background-image: url(http://danielparson.com/tka-map/img/_c1.png);
+	background-image: url(../img/_c1.png);
 }
 
 #lr
@@ -64,7 +64,7 @@ body
 	height: 200px;
 	float: left;
 	margin-top: -90px;
-	background-image: url(http://danielparson.com/tka-map/img/_d1.png);
+	background-image: url(../img/_d1.png);
 }
 
 /*******************************/
@@ -126,35 +126,35 @@ body
 {
 	width: 180px;
 	height: 110px;
-	background-image: url(http://danielparson.com/tka-map/img/_e1.png);
+	background-image: url(../img/_e1.png);
 }
 
 .hcell-1
 {
 	width: 180px;
 	height: 110px;
-	background-image: url(http://danielparson.com/tka-map/img/_g1.png);
+	background-image: url(../img/_g1.png);
 }
 
 .hcell-2
 {
 	width: 180px;
 	height: 110px;
-	background-image: url(http://danielparson.com/tka-map/img/_i3.png);
+	background-image: url(../img/_i3.png);
 }
 
 .hcell-3
 {
 	width: 180px;
 	height: 110px;
-	background-image: url(http://danielparson.com/tka-map/img/_h3.png);
+	background-image: url(../img/_h3.png);
 }
 
 .vcell
 {
 	width: 110px;
 	height: 180px;
-	background-image: url(http://danielparson.com/tka-map/img/_e2.png);
+	background-image: url(../img/_e2.png);
 }
 
 /*******************************/
@@ -191,7 +191,7 @@ body
 {
 	width: 180px;
 	height: 180px;
-	background-image: url(http://danielparson.com/tka-map/img/a1.png);
+	background-image: url(../img/a1.png);
 }
 
 /*******************************/

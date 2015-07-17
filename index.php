@@ -358,7 +358,7 @@ foreach($btile_array as $tile)
 	</div>
 </div>
 <br id="clearcanvas" />
-<p>Your map URL is <a id="mapurl" href="http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1">http://www.danielparson.com/tka-map/?m=44,g0fe0fih0e0f,a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1</a></p>
+<p>Your map URL is <a id="mapurl" href="">not loaded</a></p>
 <p>Issues with TKA Map Editor may be reported <a href="https://github.com/danparson/tka-map-editor">on GitHub</a> or discussed <a href="https://gitter.im/danparson/tka-map-editor">on Gitter</a>. Any contact not related to TKA Map Editor should be made to <a href="http://www.gatekeepergaming.com/contact-us">Gate Keeper Games</a>.</p>
 <p>&copy; 2013-2015 Dan Parson. Licensed under the <a href="https://github.com/danparson/tka-map-editor/blob/master/LICENSE">GNU AGPLv3</a> license. All <a href="https://www.boardgamegeek.com/filepage/96681/map-tiles">map tile images</a> are &copy; Gate Keeper Games and <a href="https://www.boardgamegeek.com/article/13978298#13978298">used with permission.</a></p>
 </body>

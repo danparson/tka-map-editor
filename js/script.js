@@ -20,8 +20,8 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 		mtiles_index = ((4 * (parseInt(mtile_coords[1]) - 1)) + parseInt(mtile_coords[0])) - 1;
 		mtiles[mtiles_index] = ui.draggable.attr('id').substring(2);
 		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
       }
     });
 	
@@ -38,8 +38,8 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 		$( this ).next().css("display", "");
 		$( this ).attr('colspan', '1');
 		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
       }
     });
 
@@ -67,8 +67,8 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 			$( this ).attr('rowspan', '1');
 		}
 		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
       }
     });
 	
@@ -83,8 +83,8 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 		btiles_index = ((3 * (parseInt(btile_coords[0]) - 1)) + (parseInt(btile_coords[1]) - 1));
 		btiles[btiles_index] = ui.draggable.attr('id').substring(3,4);
 		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
       }
     });
 
@@ -112,8 +112,11 @@ var mtiles = new Array("a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1", "a1
 			$( this ).attr('rowspan', '1');
 		}
 		$( this ).css('background-image', 'url(img/' + ui.draggable.attr('id').substring(2) + '.png)');
-		$( "#mapurl" ).attr('href', 'http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
-		$( "#mapurl" ).text('http://www.danielparson.com/tka-map/?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+		$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
       }
     });
+
+	$( "#mapurl" ).attr('href', location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
+	$( "#mapurl" ).text(location.href + '?m=' + dims.join('') + ',' + btiles.join('') + ',' + mtiles.join(''));
   });
